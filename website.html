@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeloMix</title>
+  <link rel="icon" href="https://icones.pro/wp-content/uploads/2021/03/icone-de-la-musique-verte.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      background-color: #121212;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 196px;
+      background-color: #000000;
+      padding: 24px;
+    }
+
+    .logo {
+      width: 30px;
+    }
+
+    .logo-text {
+      color: rgb(23, 132, 23);
+      font-weight: bold;
+      font-family: cursive;
+      position: absolute;
+      padding-left: 5px;
+      padding-top: 2px;
+      font-size: large;
+    }
+
+    .sidebar .navigation ul {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .sidebar .navigation ul li {
+      padding: 10px 0px;
+    }
+
+    .sidebar .navigation ul li a {
+      color: #b3b3b3;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .sidebar .navigation ul li a:hover,
+    .sidebar .navigation ul li a:active,
+    .sidebar .navigation ul li a:focus {
+      color: #ffffff;
+    }
+
+    .sidebar .navigation ul li .fa {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    .sidebar .navigation ul li a:hover .fa:hover,
+    .sidebar .navigation ul li a:hover .fa:active,
+    .sidebar .navigation ul li a:hover .fa:focus {
+      color: #ffffff;
+    }
+
+    .sidebar .policies {
+      position: absolute;
+      bottom: 100px;
+    }
+
+    .sidebar .policies ul {
+      list-style: none;
+    }
+
+    .sidebar .policies ul li {
+      padding-bottom: 5px;
+    }
+
+    .sidebar .policies ul li a {
+      color: #b3b3b3;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: 10px;
+    }
+
+    .sidebar .policies ul li a:hover,
+    .sidebar .policies ul li a:active,
+    .sidebar .policies ul li a:focus {
+      text-decoration: underline;
+    }
+
+    .main-container {
+      margin-left: 245px;
+      margin-bottom: 100px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      background-color: #101010;
+      padding: 20px 30px;
+    }
+
+    .topbar .navbar {
+      display: flex;
+      align-items: center;
+    }
+
+    .topbar .navbar ul {
+      list-style: none;
+    }
+
+    .topbar .navbar ul li {
+      display: inline-block;
+      margin: 0px 8px;
+      width: 70px;
+    }
+
+    .topbar .navbar ul li a {
+      color: #b3b3b3;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .topbar .navbar ul li a:hover,
+    .topbar .navbar ul li a:active,
+    .topbar .navbar ul li a:focus {
+      color: #ffffff;
+      font-size: 15px;
+    }
+
+    .topbar .navbar ul li.divider {
+      color: #ffffff;
+      font-size: 26px;
+      margin: 0px 20px;
+      width: auto;
+    }
+
+    .topbar .navbar button {
+      background-color: #ffffff;
+      color: #000000;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 14px 30px;
+      border: 0px;
+      border-radius: 40px;
+      cursor: pointer;
+      margin-left: 20px;
+    }
+
+    .topbar .navbar button:hover,
+    .topbar .navbar button:active,
+    .topbar .navbar button:focus {
+      background-color: #f2f2f2;
+    }
+
+    .melomix-playlists {
+      padding: 20px 40px;
+    }
+
+    .artists {
+      padding: 20px 40px;
+    }
+
+    .melomix-playlists h1 {
+      color: #ffffff;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .artists h1 {
+      color: #ffffff;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .melomix-playlists .list {
+      display: flex;
+      gap: 20px;
+      overflow: hidden;
+    }
+
+    .artists .list {
+      display: flex;
+      gap: 20px;
+      overflow: hidden;
+    }
+
+    .melomix-playlists .list .item {
+      min-width: 140px;
+      width: 160px;
+      padding: 15px;
+      background-color: #181818;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all ease 0.4s;
+    }
+
+    .artists .list .item {
+      min-width: 140px;
+      width: 160px;
+      padding: 15px;
+      background-color: #121212;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all ease 0.4s;
+    }
+
+    .melomix-playlists .list .item:hover {
+      background-color: #252525;
+    }
+
+    .artists .list .item:hover {
+      background-color: #252525;
+    }
+
+    .melomix-playlists .list .item img {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .artists .list .item img {
+      width: 100%;
+      border-radius: 200px;
+      margin-bottom: 10px;
+    }
+
+    .melomix-playlists .list .item .play {
+      position: relative;
+    }
+
+    .artists .list .item .play {
+      position: relative;
+    }
+
+    .melomix-playlists .list .item .play .fa {
+      position: absolute;
+      right: 10px;
+      top: -60px;
+      padding: 18px;
+      background-color: #1db954;
+      border-radius: 100%;
+      opacity: 0;
+      transition: all ease 0.4s;
+    }
+
+    .artists .list .item .play .fa {
+      position: absolute;
+      right: 10px;
+      top: -60px;
+      padding: 18px;
+      background-color: #1db954;
+      border-radius: 100%;
+      opacity: 0;
+      transition: all ease 0.4s;
+    }
+
+    .melomix-playlists .list .item:hover .play .fa {
+      opacity: 1;
+      transform: translateY(-20px);
+    }
+
+    .artists .list .item:hover .play .fa {
+      opacity: 1;
+      transform: translateY(-20px);
+    }
+
+    .melomix-playlists .list .item h4 {
+      color: #ffffff;
+      font-size: 14px;
+      margin-bottom: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .artists .list .item h3 {
+      color: #ffffff;
+      font-size: 17px;
+      margin-bottom: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 10px;
+    }
+
+    .melomix-playlists .list .item p {
+      color: #989898;
+      font-size: 12px;
+      line-height: 20px;
+      font-weight: 600;
+    }
+
+    .artists .list .item p {
+      color: #989898;
+      font-size: 12px;
+      line-height: 20px;
+      font-weight: 600;
+    }
+
+    .melomix-playlists hr {
+      margin: 70px 0px 0px;
+      border-color: #636363;
+    }
+
+    .artists hr {
+      margin: 70px 0px 0px;
+      border-color: #636363;
+    }
+
+    .melomix-playlists .list .item img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .artists .list .item img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .tabs {
+      margin: 20px 0;
+    }
+
+    .tabs .fa {
+      background-color: #181818;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: background-color 0.3s;
+      font-size: larger;
+      text-decoration: none;
+    }
+
+    .tabs .fa:hover {
+      background-color: #252525;
+    }
+
+    .tab {
+      background-color: #181818;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 20px;
+      font-size: larger;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .tab:hover {
+      background-color: #252525;
+    }
+
+    .active {
+      background-color: white;
+      color: black;
+    }
+
+    .searchbox {
+      display: flex;
+      align-items: center;
+      background-color: #2c2c2c;
+      border: 2px solid white;
+      border-radius: 30px;
+      padding: 5px 15px;
+      width: 400px;
+      color: white;
+    }
+
+    .searchbox input {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      color: white;
+      font-size: 16px;
+      flex: 1;
+      margin-left: 10px;
+    }
+
+    .searchbox input::placeholder {
+      color: #b3b3b3;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-flow: row;
+      gap: 40px;
+      margin: 50px;
+    }
+
+    .card {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 260px;
+      height: 275px;
+      object-fit: fill;
+      border-radius: 10px;
+    }
+
+    .card-content {
+      padding: 15px;
+      color: #fff;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0 0 5px;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: #bbb;
+      margin: 0;
+    }
+
+    .footer-container {
+      background-color: #121212;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding-left: 30px;
+    }
+
+    .footer-column h3 {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column li {
+      margin-bottom: 8px;
+    }
+
+    .footer-column a {
+      color: #b3b3b3;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+      padding-left: 30px;
+      font-size: 14px;
+      color: white;
+    }
+
+    .social-icons a {
+      margin-right: 10px;
+    }
+
+    .social-icons img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      transition: opacity 0.3s;
+    }
+
+    .social-icons img:hover {
+      opacity: 0.7;
+    }
+
+    .login-container {
+      width: 350px;
+      background: transparent;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      padding: 30px;
+    }
+
+    .login-form h2 {
+      text-align: center;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group label {
+      color: #b3b3b3;
+      margin-bottom: 5px;
+    }
+
+    .input-group input {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 16px;
+    }
+
+    .input-group input::placeholder {
+      color: #e0e0e0;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border: 1px solid #1db954;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-bottom: 15px;
+    }
+
+    .forgot-password a {
+      color: #1db954;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .forgot-password a:hover {
+      color: #1ed760;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #1db954;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .login-button:hover {
+      background-color: #1ed760;
+    }
+
+    .signup-link {
+      margin-top: 10px;
+      text-align: center;
+      color: #b3b3b3;
+    }
+
+    .signup-link a {
+      color: #1db954;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .signup-link a:hover {
+      color: #1ed760;
+    }
+
+    .tooltip {
+      position: relative;
+      color: #00ee10;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 10px;
+      padding: 8px;
+      position: absolute;
+      top: 150%;
+      left: 50%;
+      margin-left: -100px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip .tooltip-text::after {
+      content: "";
+      position: absolute;
+      bottom: 90%;
+      left: 50%;
+      margin-left: -15px;
+      border-width: 8px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+  <script>
+    // Function to show the correct page
+    function showPage(pageId) {
+      // Hide all pages
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(page => page.style.display = 'none');
+
+      // Show the selected page
+      document.getElementById(pageId).style.display = 'block';
+    }
+    // Ensure 'home' is displayed by default when the DOM loads
+    document.addEventListener('DOMContentLoaded', () => {
+      showPage('home');
+    });
+
+    // Function to set the 'active' class on the clicked button
+    function setActive(clickedButton) {
+      // Remove 'active' class from all buttons
+      const buttons = document.querySelectorAll('.tab');
+      buttons.forEach(button => button.classList.remove('active'));
+
+      // Add 'active' class to the clicked button
+      clickedButton.classList.add('active');
+    }
+
+  </script>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo-container">
+      <img src="https://icones.pro/wp-content/uploads/2021/03/icone-de-la-musique-verte.png" class="logo">
+      <span class="logo-text">MeloMix</span>
+    </div>
+
+    <div class="navigation">
+      <ul>
+        <li>
+          <a href="#">
+            <span class="fa fas fa-book"></span>
+            <span>Your Library</span>
+          </a>
+        </li>
+        <li>
+          <a href="3">
+            <span class="fa fas fa-heart"></span>
+            <span>Liked Songs</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="fa fas fa-plus-square"></span>
+            <span>Create Playlist</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="policies">
+      <ul>
+        <li>
+          <a href="#">Cookies</a>
+        </li>
+        <li>
+          <a href="#">Legal</a>
+        </li>
+        <li>
+          <a href="#">Privacy Policy</a>
+        </li>
+        <li>
+          <a href="#">About Ads</a>
+        </li>
+        <li>
+          <a href="#">Accessibility</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <div class="topbar">
+      <div class="searchbox">
+        <span class="fa fa-search"></span>
+        <input type="text" placeholder="What do you want to play?">
+      </div>
+
+      <div class="navbar">
+        <ul>
+          <li>
+            <a href="#" class="tooltip">Premium<span class="tooltip-text">
+                <h3 style="color: #24ad5d;">
+                  <pre>Upgrade to Premium</pre>
+                </h3><br>
+                <p>Listen without limits.Try 2 months of premium for ₹119.</p><br>
+                <p style="font-size:xx-small;">Only ₹119/month after.Cancel anytime.</p>
+              </span></a>
+          </li>
+          <li>
+            <a href="#" class="tooltip">Support<span class="tooltip-text">
+                <h3 style="color: #24ad5d;">
+                  <pre>How can we help you?</pre>
+                </h3>
+                <p>
+                  <input type="text" placeholder="Search"
+                    style="border-radius: 5px; margin-bottom: 10px; padding: 3px; margin-top: 10px;">
+                  <u>Payments&Billing</u><br>
+                  <u>Manage your account</u><br>
+                  <u>Premium Plans</u><br>
+                  <u>Troubleshooting</u><br>
+                  <u>Safety&Privacy</u><br>
+                </p>
+              </span></a>
+          </li>
+          <li>
+            <a href="#" class="tooltip">Download<span class="tooltip-text"><img
+                  src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ8KHjhXzSpsPqiy-qv_j7naSnKXiqJdqKBm2BnSF4lF8Ofh2eH"
+                  width="100px" height="100px" style="border-radius: 5px; margin-top: 15px;">
+                <h2 style="color: #24ad5d;">
+                  <pre>Download MeloMix</pre>
+                </h2><br>
+                <p>Play millions of songs and podcasts on your device.</p><br><img
+                  src="https://get.microsoft.com/images/en-us%20dark.svg">
+              </span></a>
+          </li>
+          <li class="divider">|</li>
+          <li>
+            <a href="#">Sign Up</a>
+          </li>
+        </ul>
+        <button onclick="setActive(this); showPage('Log In');">Log In</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button onclick="setActive(this); showPage('home');" class="fa fa-home tab active"></button>
+      <button onclick="setActive(this); showPage('songs');" class="tab">Songs</button>
+      <button onclick="setActive(this); showPage('podcast');" class="tab">Podcasts</button>
+    </div>
+
+
+    <section id="home" class="page">
+      <div class="artists">
+        <h1>Popular Artists</h1>
+
+        <div class="list">
+          <div class="item">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLd4Qq0Js1jLIIkyJEJfRNoxzgKfsmnCJJvqzy31FN2FRhqBleY--ZokAeaqjF5jb6-Mo&usqp=CAU">
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h3>A.R.Rahman</h3>
+            <p>Artist</p>
+          </div>
+
+          <div class="item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSilk5efcDi-030PdmgqZfmNZa-HAbQq7rcCg&s">
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h3>Anirudh Ravichander</h3>
+            <p>Artist</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab6761610000e5eb77c63908ac248d3bf6d42f27">
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h3>Neha Kakkar</h3>
+            <p>Artist</p>
+          </div>
+
+          <div class="item">
+            <img
+              src="https://img.wynk.in/unsafe/200x200/filters:no_upscale():strip_exif():format(jpg)/http://s3.ap-south-1.amazonaws.com/discovery-prod-zion/zion/1696453147002-Pritam.png" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h3>Pritam</h3>
+            <p>Artist</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab6761610000e5eb5ba2d75eb08a2d672f9b69b7">
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h3>Arijit Singh</h3>
+            <p>Artist</p>
+          </div>
+
+          <div class="item">
+            <img
+              src="https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages221/v4/a1/e9/2f/a1e92f63-d346-2be3-ed52-e7a17d6efd38/7bcb3173-5731-4e8a-ad83-82e7d542513d_file_cropped.png/486x486bb.png">
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h3>Karan Sehmbi</h3>
+            <p>Artist</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="melomix-playlists">
+        <h1>Albums</h1>
+        <div class="list">
+          <div class="item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI_sQkq6tRoXEun4tX7kxdeKvu4qe_k_uVLw&s" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>We Rollin</h4>
+            <p>Song by Shubh.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2735e16168f7e8ff4fb8aace6cf" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Aaj Ki Raaj("From Street 2")</h4>
+            <p>Song by Sachin-Jigar,Amitabh Bhattacharya.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d00001e02cd2cd109be9cbcf31bb3e3c7" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Thirunanggai</h4>
+            <p>Song by Havoc Brothers.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnwcWWzzaPWRlwx3TCIGG1Pge2QYljJKl-CQ&s" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Magical</h4>
+            <p>Song by Nimrat Khaira.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJBgCKIlzwQkOSWtffT4lBUmbvsyDVkTkLGA&s" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Kannoram</h4>
+            <p>Song by Stephen Zechariah.</p>
+          </div>
+
+          <div class="item">
+            <img
+              src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/03/f8/f7/03f8f739-4282-fd65-d6ca-677a7f884bff/886449188420.jpg/1200x1200bf-60.jpg" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Kutty Pattas</h4>
+            <p>Song by Rakshita Suresh and Santhosh Dhayanidhi.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="melomix-playlists">
+        <h1>Based on your recent listening</h1>
+        <div class="list">
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67706f00000002bb2a6f07880702d7dea0235e" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Adipoli X kuthu</h4>
+            <p>Dance to the rhythms of Mollywood X Kollywood.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2739e3495a35db3c1e374ce09b5" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Ishq-From "Lost;Found"</h4>
+            <p>Faheem Abdullah,Rauhan Malik,Amir Ameer.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67706f00000002d46223b553e2f5b1fb524599" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>New Year Party Tamil</h4>
+            <p>Welcome 2025 with your favourite party tracks!</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273b0f9ceb59927ab76fe6269be" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Hamari Adhuri Kahani</h4>
+            <p>Jeet Gannguli,Arijit Singh.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273da8d29ecfc096bb69dff7ac1" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Manasilaayo(From "Vettaiyan")</h4>
+            <p>Anirudh Ravichander,Malaysia Vasudevan,Deepthi Suresh,Yugendran Vasudevan.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b27330ab7dd227b4655a3dfbc93e" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Samjho Na X Wishes</h4>
+            <p>DJ Sumit Rajwanshi.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="melomix-playlists">
+        <h1>Mindful Moments!</h1>
+        <div class="list">
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d00001e020fe6ad5263b3d7da88278e33" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Stress Relief</h4>
+            <p>Calm your mind from anxiety with gentle piano and ambient music.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://avatars.yandex.net/get-music-content/34131/9f1d8ed1.a.3690678-1/m1000x1000" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Nature Sounds</h4>
+            <p>Sounds of birds,rain,and forest ambience.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67706f00000002c9db91ef54c1d6ab4ebb54ed" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Chill Out Music</h4>
+            <p>The ultimate chill out playlist.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d00001e0286708a8b236f492e6d8b35b1" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Gentle Rains</h4>
+            <p>Soothing sounds of gentle rain.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67706f00000002640aa944e9d545e4dff348c1" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Lofi Chill</h4>
+            <p>Lazy slow lofi beats for laid-back moments.</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d00001e020f3c39ce0f3ac884394e3a6b" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Flute Meditation</h4>
+            <p>Tranquil flute music from around the world.</p>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <footer class="footer-container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Jobs</a></li>
+              <li><a href="#">For the Record</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Communities</h3>
+            <ul>
+              <li><a href="#">For Artists</a></li>
+              <li><a href="#">Developers</a></li>
+              <li><a href="#">Advertising</a></li>
+              <li><a href="#">Investors</a></li>
+              <li><a href="#">Vendors</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Useful links</h3>
+            <ul>
+              <li><a href="#">Support</a></li>
+              <li><a href="#">Free Mobile App</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Spotify Plans</h3>
+            <ul>
+              <li><a href="#">Premium Individual</a></li>
+              <li><a href="#">Premium Duo</a></li>
+              <li><a href="#">Premium Family</a></li>
+              <li><a href="#">Premium Student</a></li>
+              <li><a href="#">Spotify Free</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2024 MeloMix AB</p>
+          <div class="social-icons">
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" /></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" /></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/145/145802.png" alt="Facebook" /></a>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+    <section id="songs" class="page">
+      <div class="melomix-playlists">
+        <h1>Hindi</h1>
+
+        <div class="list">
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d00001e0209426d9ae9d8d981735ebc5e" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Ranjha(From "Shershaah")</h4>
+            <p>Jasleem Royal,B Praak,Romy,Anvita Dutt</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2734a60872ae145776164540a7f" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Heeriya(feat.Arijit Singh)</h4>
+            <p>Jasleen Royal,Arijit Singh,Dulquer Salmaan</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273ab80bdcc6318a2c55befe767" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Zara Zara-Lofi</h4>
+            <p>Bombay Jayashri,DJ Aftab</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2736404721c1943d5069f0805f3" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Tum Hi Ho</h4>
+            <p>Mithoon,Arijit Singh</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273c08202c50371e234d20caf62" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Kesariya(From "Brahmastra")</h4>
+            <p>Pritam,Arijith Singh,Amitabh Bhattacharya</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273021d7017f73387b008eab271" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Satranga(From "Animal")</h4>
+            <p>Arijith Singh,Shreyas Puranik,Siddharth-Garima</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="melomix-playlists">
+        <h1>Tamil</h1>
+        <div class="list">
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2731f00279071cc1ef6149a32be" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Hayyoda(From "Jawan")</h4>
+            <p>Anirudh Ravichander,Priya Mali</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2737516e7d8174c4f73b052292e" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Achacho-From "Aranmanai4"</h4>
+            <p>Hiphop Tamizha,Kharesma Ravichandran,Srinisha Jayaseelan</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273aea36b00e97ebd3dbf8d90a5" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Dheema(From "Love Insurance Kompany")</h4>
+            <p>Anirudh Ravichander</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2730d66934f5370419636c78f18" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Idhazhin Oram-The Innocence of Love</h4>
+            <p>Anirudh Ravichander,Ajesh</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b27374a555ea03b0844b1e1d4513" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Aasa Kooda</h4>
+            <p>Sai Abhyankkar,Sai Smriti</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273c6450e207a940a702498042b" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Makkamishi-From "Brother"</h4>
+            <p>Harris Jayaraj,Paal Dabba,Dacalty</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="melomix-playlists">
+        <h1>Telugu</h1>
+
+        <div class="list">
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2738eefd8ed3771887743964993" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Aradhya(From "Kushi")(Telugu)</h4>
+            <p>Hesham Abdul Wahab,Chinmayi</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2739b1c93361f991709758c28d2" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Inthandham(From "Sita Ramam")</h4>
+            <p>Vishal Chandrashekhar,S.P.Charan</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2731b291d0933bd9890c1b354b7" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Kurchi Madathapetti(From "Guntur Kaaram")</h4>
+            <p>Thaman S,Sri Krishna,Sahithi Chaganti,Mahesh Babu</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b27306d5b855830140fe8a977f5d" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Chitti(From "Jathi Ratnalu")</h4>
+            <p>Ram Miriyala</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b27367c1d6da5f83ee1f47c9f553" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Adhento Gaani Vunnapaatuga(Jersey)</h4>
+            <p>Anirudh Ravichander</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273d804dee451ab2cb80669a93e" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>O Pilaga Venkati</h4>
+            <p>Singer Prabha</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="melomix-playlists">
+        <h1>English</h1>
+
+        <div class="list">
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Perfect</h4>
+            <p>Ed Sheeran</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d00001e02e6095c382c2853667c1623eb" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Senorita</h4>
+            <p>Shawn Mendes,Camila Cabello</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273909182bf113b1980e97cfbfa" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Safari</h4>
+            <p>Serena</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b27383612f77200c9b1575be981a" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Changes</h4>
+            <p>XXXTENTACION</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273212d776c31027c511f0ee3bc" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Let Me Love You</h4>
+            <p>DJ Snake,Justin Bieber</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2735675e83f707f1d7271e5cf8a" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Believer</h4>
+            <p>Imagine Dragons</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="melomix-playlists">
+        <h1>Malayalam</h1>
+        <div class="list">
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273defc8620cc34bfdf817cf71c" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Habibi Drip</h4>
+            <p>Dabzee,Ribin Richard</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b27300634c474ac74b4ed6942db6" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Mazhamegham</h4>
+            <p>Sooraj Santhosh</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2737829df0dedbe569ce1844e30" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Ranam-From "Ranam"</h4>
+            <p>Jakes Bejoy,Ajaey Shravan,Neha S.Nair,SaintT.F.C</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b273046cf5d6d31d4b796c075d2b" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Neela Nilave(From"RDX")</h4>
+            <p>Sam C.S.,Kapil Kapilan</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d00001e02399777346a34309f7029cf8e" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Haalaake Marunne</h4>
+            <p>Vishnu Vijay,Pushpavathy,Ahi Ajayan,Mu.Ri</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b27318697bfc37a75d4153b3abed" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Kutty Kudiye(From "Premalu")</h4>
+            <p>Vishnu Vijay,Suhail Koya,Sanjith Hegde</p>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <footer class="footer-container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Jobs</a></li>
+              <li><a href="#">For the Record</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Communities</h3>
+            <ul>
+              <li><a href="#">For Artists</a></li>
+              <li><a href="#">Developers</a></li>
+              <li><a href="#">Advertising</a></li>
+              <li><a href="#">Investors</a></li>
+              <li><a href="#">Vendors</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Useful links</h3>
+            <ul>
+              <li><a href="#">Support</a></li>
+              <li><a href="#">Free Mobile App</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Spotify Plans</h3>
+            <ul>
+              <li><a href="#">Premium Individual</a></li>
+              <li><a href="#">Premium Duo</a></li>
+              <li><a href="#">Premium Family</a></li>
+              <li><a href="#">Premium Student</a></li>
+              <li><a href="#">Spotify Free</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2024 MeloMix AB</p>
+          <div class="social-icons">
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" /></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" /></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/145/145802.png" alt="Facebook" /></a>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+    <section id="podcast" class="page">
+      <div class="container">
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab6765630000ba8a6b86a34334126c283a5113d8" alt="20 Minute Books">
+          <div class="card-content">
+            <p class="card-title">20 Minute Books</p>
+            <p class="card-subtitle">20 Minute Books</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab6765630000ba8af93e197d7f1cac499bcb6dd8" alt="Not Your Type">
+          <div class="card-content">
+            <p class="card-title">Not Your Type</p>
+            <p class="card-subtitle">Not Your Type</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab6765630000ba8adb99e41a70113b12c819d8a0" alt="TED Talks Daily">
+          <div class="card-content">
+            <p class="card-title">TED Talks Daily</p>
+            <p class="card-subtitle">TED</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab6765630000ba8ade3404901270d81ee3bbc408" alt="The Ranveer Show">
+          <div class="card-content">
+            <p class="card-title">The Ranveer Show</p>
+            <p class="card-subtitle">BeerBiceps</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab6765630000ba8ad9b9f8b38f00230d9ffc392f" alt="Best Love Stories">
+          <div class="card-content">
+            <p class="card-title">Best Love Stories</p>
+            <p class="card-subtitle">Spotify Studios</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://lite-images-i.scdn.co/image/ab67656300005f1faf26f77529825d20792bd578" alt="Stand Up Comedy">
+          <div class="card-content">
+            <p class="card-title">Stand Up Comedy</p>
+            <p class="card-subtitle">Comedy</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab67656300005f1fadb1afaedc6bc7d3fb96488b" alt="Konjam Think Panlaama">
+          <div class="card-content">
+            <p class="card-title">Konjam Think Panlaama-Tamil Podcast</p>
+            <p class="card-subtitle">Anu</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab67656300005f1f2f4a7d19dc0bbf18680227b5" alt="The Psychology of Your 20s">
+          <div class="card-content">
+            <p class="card-title">The Psychology of Your 20s</p>
+            <p class="card-subtitle">iHeartPodcasts</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab6765630000ba8a6c69fcf7dbe4939b064b0815" alt="Naallanaa Murukku">
+          <div class="card-content">
+            <p class="card-title">Naallanaa Murukku-The RJ Balaji Podcast</p>
+            <p class="card-subtitle">Spotify Studios</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab6765630000ba8a2e85e1690e932df6d70ff8a2" alt="The Desi Crime">
+          <div class="card-content">
+            <p class="card-title">The Desi Crime Podcast</p>
+            <p class="card-subtitle">Desi Studios</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab6765630000ba8a9d1c9e8036b8733f571c5fcf" alt="Horror Podcast">
+          <div class="card-content">
+            <p class="card-title">Horror Podcast Hindi</p>
+            <p class="card-subtitle">RJM Praveen</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://i.scdn.co/image/ab6765630000ba8a271520bec0ac82d57d0c2689" alt="Figuring Out">
+          <div class="card-content">
+            <p class="card-title">Raj Shamani's Figuring Out</p>
+            <p class="card-subtitle">Raj Shamani</p>
+          </div>
+        </div>
+      </div>
+      <footer class="footer-container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Jobs</a></li>
+              <li><a href="#">For the Record</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Communities</h3>
+            <ul>
+              <li><a href="#">For Artists</a></li>
+              <li><a href="#">Developers</a></li>
+              <li><a href="#">Advertising</a></li>
+              <li><a href="#">Investors</a></li>
+              <li><a href="#">Vendors</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Useful links</h3>
+            <ul>
+              <li><a href="#">Support</a></li>
+              <li><a href="#">Free Mobile App</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Spotify Plans</h3>
+            <ul>
+              <li><a href="#">Premium Individual</a></li>
+              <li><a href="#">Premium Duo</a></li>
+              <li><a href="#">Premium Family</a></li>
+              <li><a href="#">Premium Student</a></li>
+              <li><a href="#">Spotify Free</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2024 MeloMix AB</p>
+          <div class="social-icons">
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" /></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" /></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/145/145802.png" alt="Facebook" /></a>
+          </div>
+        </div>
+      </footer>
+    </section>
+    <center>
+      <section id="Log In" class="page">
+        <div class="login-container">
+          <form class="login-form">
+            <h2>Login</h2>
+
+            <div class="input-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+
+            <div class="forgot-password">
+              <a href="#">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-button">Login</button>
+
+            <p class="signup-link">Don't have an account? <a href="#">Sign up</a></p>
+          </form>
+        </div>
+      </section>
+    </center>
+
+</body>
+
+</html>
